@@ -20,4 +20,7 @@ jobs:
         dotnet-version: 8.0.x
              
     - name: Run
-      run: dotnet run --project CanteenParser 123 432 345 354
+      env:
+        canteen_username: ${{ secrets.CANTEEN_USERNAME }}
+        canteen_password: ${{ secrets.CANTEEN_PASSWORD }}
+      run: dotnet run --project CanteenParser $canteen_username $canteen_password 345 354
