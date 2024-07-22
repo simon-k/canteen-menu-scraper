@@ -1,6 +1,8 @@
 name: Run
 
 on:
+  workflow_dispatch:
+  
   schedule:
     - cron: "0 6 * * *" # Run every day at 6:00 UTC 
       
