@@ -1,37 +1,16 @@
-﻿using System.Text.Json;
-using CanteenParser;
-using CanteenParser.Domain;
+﻿using CanteenParser;
+using CanteenParser.Readers;
+using CanteenParser.Writers;
 
 var username = args[0];
 var password = args[1];
-var tenant = args[2];
-var clientId = args[3];
-var clientSecret = args[4];
-var scope = args[5];
+var gistToken = args[2];
+var gistId = args[3];
 
 var websiteReader = new WebsiteReader();
 var websiteContent = await websiteReader.ReadWebsiteContentAsync(username, password);
 
-var frontend = JsonSerializer.Deserialize<Frontend>(websiteContent, new JsonSerializerOptions
-{
-    PropertyNameCaseInsensitive = true
-})!;
+var dishes = MenuParser.GetAllDishes(7, websiteContent);
 
-var logPoster = new LogPoster(tenant, clientId, clientSecret, scope);
-for(int i = 0; i < 7; i++)
-{
-    try
-    {
-        var vegetarianDish = MenuReader.GetVegetarianDish(frontend, -i);
-        var dish = MenuReader.GetDish(frontend, -i);
-        
-        Console.WriteLine($"Menu: {dish}");
-        Console.WriteLine($"Vegetarian menu: {vegetarianDish}");
-        
-        await logPoster.Execute(dish, vegetarianDish);
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine("Could not find the days menu");
-    }
-}
+var csvWriter = new GistCsvWriter(gistToken, gistId);
+await csvWriter.Execute(dishes);
