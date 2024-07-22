@@ -1,6 +1,6 @@
 ﻿namespace CanteenParser.Domain;
 
-public class Frontend
+public class WebsiteContent
 {
     public bool AllowMobilePay { get; set; }
     public bool AllowSwish { get; set; }

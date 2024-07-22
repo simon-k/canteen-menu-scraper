@@ -2,9 +2,11 @@
 
 public class Dish
 {
-    public string Name { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public DateTimeOffset Date { get; set; }
+    public required DateTimeOffset Date { get; set; }
+    public string When => Date.AddHours(11).ToString("dd-MM-yyyy HH:mm");
+    public required string Kind { get; set; }
+    public required string Name { get; set; }
+    public required string Description { get; set; }
     
     public override string ToString()
     {

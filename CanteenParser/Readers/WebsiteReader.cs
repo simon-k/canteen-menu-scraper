@@ -1,24 +1,30 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text.Json;
+using CanteenParser.Domain;
 
-namespace CanteenParser;
+namespace CanteenParser.Readers;
 
 public class WebsiteReader
 {
-    //TODO: In dotnet core make a HTTP Client factory.
-    // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-8.0
-    public async Task<string> ReadWebsiteContentAsync(string username, string password)
+    public async Task<WebsiteContent> ReadWebsiteContentAsync(string username, string password)
     {
         var authId = await GetAuthIdAsync(username, password);
         var frontendJson = await GetFrontendAsync(authId);
-        return frontendJson;
+        
+        var frontendContent = JsonSerializer.Deserialize<WebsiteContent>(frontendJson, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        
+        return frontendContent;
     }
     
     private async Task<string> GetFrontendAsync(string authId)
     {
         var client = new HttpClient();
-        client.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("Bearer", authId);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authId);
         
         var response = await client.PostAsync("https://novo.foodandco.dk/api/internal/load/frontend", new StringContent(""));
 
@@ -33,6 +39,9 @@ public class WebsiteReader
         using var response = await client.PostAsync(
             "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDDtuovWpK6PARKIt9wUqaTQP7MjFWIWF4", 
             new StringContent($"{{\"returnSecureToken\":true,\"email\":\"{email}\",\"password\":\"{password}\"}}"));
+        
+        if (response.StatusCode != HttpStatusCode.OK)
+            throw new Exception("Could not authenticate to the canteen menu website");
         
         var authResponse = await response.Content.ReadFromJsonAsync<AuthResponse>();
         return authResponse!.IdToken;

@@ -1,4 +1,4 @@
-﻿namespace CanteenParser;
+﻿namespace CanteenParser.Test;
 
 public static class JsonReader
 {
