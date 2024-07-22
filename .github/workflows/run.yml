@@ -23,4 +23,6 @@ jobs:
       env:
         canteen_username: ${{ secrets.CANTEEN_USERNAME }}
         canteen_password: ${{ secrets.CANTEEN_PASSWORD }}
-      run: dotnet run --project CanteenParser $canteen_username $canteen_password 345 354
+        gist_write_pat: ${{ secrets.GIST_WRITE_PAT }}
+        gist_id: ${{ secrets.GIST_ID }}
+      run: dotnet run --project CanteenParser $canteen_username $canteen_password $gist_write_pat $gist_id
