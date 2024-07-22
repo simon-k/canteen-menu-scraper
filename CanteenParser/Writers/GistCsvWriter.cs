@@ -41,6 +41,8 @@ public class GistCsvWriter(string authToken, string gistId)
 
         if (response.StatusCode != HttpStatusCode.OK)
             throw new Exception($"Could not post to gist. {response.Content.ReadAsStringAsync()}");
+        
+        Console.WriteLine($"Wrote menu to gist with id {gistId}");
     }
     
     private async Task<string> DishesToCsvAsync(List<Dish> dishes)
