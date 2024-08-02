@@ -4,22 +4,25 @@
 Reads canteen menu from website, parses it and writes it to a gist as a CSV file .
 
 # Requirements
-1. A login to the Canteen website
+1. A user with login to the Canteen website. The user must have assigned the canteens to the profilæe under its settings.
 2. An existing Gist to store the menu
 
 ## How to run it
-The console app has 4 parameters
+The console app has 6 parameters
+1. The Canteen "School ID"
 1. The username for the canteen user
 2. The password for the canteen user
 3. PAT for a GitHub user that has permission to write to the Gist 
 4. Gist ID for the Gist you want to write to
+5. Gidt Filename for the CSV file~~~~
 
 ```bash
-CanteenParser.exe <canteen-username> <canteen-password> <github-pat> <gist-id>
+CanteenParser.exe <canten-school-id> <canteen-username> <canteen-password> <github-pat> <gist-id> <gist-filename>
 ```
 
 The menu can then be accessed from the Gist URL.
 
+For example
 ```
 https://gist.githubusercontent.com/{Github Username of PAT}/{Gist ID}}/raw/LP42.csv
 ```
@@ -35,6 +38,7 @@ dotnet publish CanteenParser -r win-x64 /p:PublishSingleFile=true /p:IncludeNati
 The exe file is placed in `CanteenParser\bin\Release\net8.0\win-x64\publish`
 
 _MacOS_ 
+
 T.B.D.
 
 ## TODO
@@ -42,4 +46,7 @@ T.B.D.
 * Make the canteen id a parameter
 * Make number of days a parameter
 * Dependency Injection. Fx the HttpClient should only be created once with a HttpClientFactory https://learn.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-8.0
-* Add some tests based on the json files in the testdata folder~~~~
+* Add some tests based on the json files in the testdata folder
+
+## W.T.F.
+The Kanpla website is clearly built for schools and not for companies, so a canteen is identified by a School ID and not a Canteen Id. 

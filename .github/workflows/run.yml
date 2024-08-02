@@ -19,10 +19,32 @@ jobs:
       with:
         dotnet-version: 8.0.x
              
-    - name: Run
+    - name: Get LP42 Menu
       env:
+        canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_LP42 }}
         canteen_username: ${{ secrets.CANTEEN_USERNAME }}
         canteen_password: ${{ secrets.CANTEEN_PASSWORD }}
         gist_write_pat: ${{ secrets.GIST_WRITE_PAT }}
         gist_id: ${{ secrets.GIST_ID }}
-      run: dotnet run --project CanteenParser $canteen_username $canteen_password $gist_write_pat $gist_id
+        gist_filename: "LP42.csv"
+      run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
+
+    - name: Get VTA Menu
+      env:
+        canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_VTA }}
+        canteen_username: ${{ secrets.CANTEEN_USERNAME }}
+        canteen_password: ${{ secrets.CANTEEN_PASSWORD }}
+        gist_write_pat: ${{ secrets.GIST_WRITE_PAT }}
+        gist_id: ${{ secrets.GIST_ID }}
+        gist_filename: "VTA.csv"
+      run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
+      
+    - name: Get VTD Menu
+      env:
+        canteen_school_id: ${{ secrets.VTD_SCHOOL_ID }}
+        canteen_username: ${{ secrets.CANTEEN_USERNAME }}
+        canteen_password: ${{ secrets.CANTEEN_PASSWORD }}
+        gist_write_pat: ${{ secrets.GIST_WRITE_PAT }}
+        gist_id: ${{ secrets.GIST_ID }}
+        gist_filename: "VTD.csv"
+      run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
