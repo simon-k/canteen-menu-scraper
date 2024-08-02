@@ -41,7 +41,7 @@ jobs:
       
     - name: Get VTD Menu
       env:
-        canteen_school_id: ${{ secrets.VTD_SCHOOL_ID }}
+        canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_VTD }}
         canteen_username: ${{ secrets.CANTEEN_USERNAME }}
         canteen_password: ${{ secrets.CANTEEN_PASSWORD }}
         gist_write_pat: ${{ secrets.GIST_WRITE_PAT }}
