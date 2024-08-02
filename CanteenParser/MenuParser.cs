@@ -1,4 +1,5 @@
-﻿using CanteenParser.Domain;
+﻿using System.Text.RegularExpressions;
+using CanteenParser.Domain;
 
 namespace CanteenParser;
 
@@ -108,10 +109,17 @@ public static class MenuParser
     
     private static string TrimUnwantedCharacters(string input)
     {
-        return input
+        //REmove newlines, tabs and multiple spaces
+        var trimmed = input
             .Replace("\n", "")
             .Replace("\r", "")
             .Replace("\t", "")
+            .Replace(" ,", ",")
             .Trim();
+        
+        var regex = new Regex("[ ]{2,}", RegexOptions.None);     
+        trimmed = regex.Replace(trimmed, " ");
+
+        return trimmed;
     }
 }
