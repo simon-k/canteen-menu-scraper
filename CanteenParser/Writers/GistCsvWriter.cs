@@ -4,6 +4,7 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using CanteenParser.Domain;
 using CsvHelper;
+using CsvHelper.TypeConversion;
 
 namespace CanteenParser.Writers;
 
@@ -49,6 +50,8 @@ public class GistCsvWriter(string authToken, string gistId, string filename)
     {
         await using var stringWriter = new StringWriter();
         await using var csvWriter = new CsvWriter(stringWriter, CultureInfo.InvariantCulture, true);
+        var options = new TypeConverterOptions { Formats = new[] { "dd-MM-yyyy" } };
+        csvWriter.Context.TypeConverterOptionsCache.AddOptions<DateTimeOffset>(options);
         await csvWriter.WriteRecordsAsync(dishes);
         await csvWriter.FlushAsync();
         var csv = stringWriter.ToString();
