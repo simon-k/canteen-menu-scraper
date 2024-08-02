@@ -27,6 +27,17 @@ For example
 https://gist.githubusercontent.com/{Github Username of PAT}/{Gist ID}}/raw/LP42.csv
 ```
 
+And looks like this
+```csv
+Date,When,Kind,Name,Description
+02-08-2024,02-08-2024 11:00,Vegetarian,"Mexican bean casule with rice sour cream, jalapenos, vegan tortilla chips","Mexicansk bønnecasule med ris creme fraiche, jalapenos, vegansk tortillia chips"
+02-08-2024,02-08-2024 11:00,Meat,"Boeuf bourguignon with carrots, mushrooms and mashed potatoes topped with fresh herbs","Boeuf bourguignon med gulerødder, svampe hertil kartoffelmos toppet med friske urter"
+02-08-2024,05-08-2024 11:00,Vegetarian,"Vegetarian Tom Kah Gai with Ingrid peas, bamboo shoots, coconut, lemongrass, lime leaves, peppers and chilli","Vegetarisk Tom Kah Gai med Ingrid ærter, bambusskud, kokos, citrongræs, limeblade peberfrugter og chili"
+...
+```
+
+Note, the date and time is in CET timezone and in the format dd-MM-yyyy hh:mm~~~~.
+
 ## Build a single executable
 If you want a single executable file for easy distribution you can build it with the following command. 
 From the root directory of the solution run the following command:
