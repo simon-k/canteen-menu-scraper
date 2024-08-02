@@ -16,12 +16,18 @@ public static class MenuParser
             try
             {
                 var vegetarianDish = GetVegetarianDish(websiteContent, i);
-                Console.WriteLine($"Vegetarian menu: {vegetarianDish}");
-                dishes.Add(vegetarianDish);
-        
+                if (vegetarianDish != null)
+                {
+                    Console.WriteLine($"Vegetarian menu: {vegetarianDish}");
+                    dishes.Add(vegetarianDish);
+                }
+
                 var meatDish = GetDish(websiteContent, i);
-                Console.WriteLine($"Menu: {meatDish}");
-                dishes.Add(meatDish);
+                if (meatDish != null)
+                {
+                    Console.WriteLine($"Menu: {meatDish}");
+                    dishes.Add(meatDish);
+                }
             }
             catch (Exception e)
             {
@@ -31,22 +37,29 @@ public static class MenuParser
         return dishes;
     }
     
-    public static Dish GetVegetarianDish(WebsiteContent websiteContent, int dateOffset)
+    public static Dish? GetVegetarianDish(WebsiteContent websiteContent, int dateOffset)
     {
         var date = GetTodaysDateInUnixTimestamp(dateOffset);
         return GetMenu(websiteContent, VEGITARIAN_DISH, date);
     }
     
-    public static Dish GetDish(WebsiteContent websiteContent, int dateOffset)
+    public static Dish? GetDish(WebsiteContent websiteContent, int dateOffset)
     {
         var date = GetTodaysDateInUnixTimestamp(dateOffset);
         return GetMenu(websiteContent, MEAT_DISH, date);
     }
     
-    private static Dish GetMenu(WebsiteContent websiteContent, string itemName, string dateUnixSeconds)
+    private static Dish? GetMenu(WebsiteContent websiteContent, string itemName, string dateUnixSeconds)
     {
         var items = FindItemByName(websiteContent, itemName);
-        var todaysMenu = items.Dates[dateUnixSeconds];          //If there is no dish for the day it will throw an exception. Find a nicer way to handle this...
+        var todaysMenu = items.Dates.GetValueOrDefault(dateUnixSeconds);          
+        
+        if (todaysMenu == null || string.IsNullOrWhiteSpace(todaysMenu.Menu.Name))
+        {
+            Console.WriteLine($"Menu not found for unix timestamp {dateUnixSeconds}");
+            return null;
+        }
+        
         return new Dish
         {
             Name = TrimUnwantedCharacters(todaysMenu.Menu.Name),
@@ -82,7 +95,7 @@ public static class MenuParser
 
         if (text.Contains("pork", StringComparison.CurrentCultureIgnoreCase))
         {
-            return "Porkk";
+            return "Pork";
         }
 
         if (text.Contains("chicken", StringComparison.CurrentCultureIgnoreCase))
