@@ -7,7 +7,7 @@ using CsvHelper;
 
 namespace CanteenParser.Writers;
 
-public class GistCsvWriter(string authToken, string gistId)
+public class GistCsvWriter(string authToken, string gistId, string filename)
 {
     private readonly HttpClient _httpClient = new();  //TODO: Inject this with DI
 
@@ -20,7 +20,7 @@ public class GistCsvWriter(string authToken, string gistId)
             Files = new Dictionary<string, GistFile>
             {
                 {
-                    "LP42.csv", new GistFile
+                    filename, new GistFile
                     {
                         Content = cvs
                     }
@@ -42,7 +42,7 @@ public class GistCsvWriter(string authToken, string gistId)
         if (response.StatusCode != HttpStatusCode.OK)
             throw new Exception($"Could not post to gist. {response.Content.ReadAsStringAsync()}");
         
-        Console.WriteLine($"Wrote menu to gist with id {gistId}");
+        Console.WriteLine($"Wrote menu to gist with id {gistId} and filename {filename}");
     }
     
     private async Task<string> DishesToCsvAsync(List<Dish> dishes)
