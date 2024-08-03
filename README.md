@@ -20,12 +20,10 @@ The console app has 6 parameters
 CanteenParser.exe <canten-school-id> <canteen-username> <canteen-password> <github-pat> <gist-id> <gist-filename>
 ```
 
-The menu can then be accessed from the Gist URL.
+The menu can then be accessed from the Gist URL. The run action of this repository generates csv files in this gist
 
-For example
-```
-https://gist.githubusercontent.com/{Github Username of PAT}/{Gist ID}}/raw/LP42.csv
-```
+https://gist.github.com/simon-k/6ff5c22ee7d43540c0e2767974f27f9e
+
 
 And looks like this
 ```csv
@@ -36,25 +34,10 @@ Date,When,Kind,Name,Description
 ...
 ```
 
-Note, the date and time is in CET timezone and in the format dd-MM-yyyy hh:mm~~~~.
-
-## Build a single executable
-If you want a single executable file for easy distribution you can build it with the following command. 
-From the root directory of the solution run the following command:
-
-_Windows_
-```bash
-dotnet publish CanteenParser -r win-x64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:DebugType=embedded
-```
-The exe file is placed in `CanteenParser\bin\Release\net8.0\win-x64\publish`
-
-_MacOS_ 
-
-T.B.D.
+Note, the date and time is in CET timezone and in the format dd-MM-yyyy hh:mm.
 
 ## TODO
 * Make canteen website url an optional parameter
-* Make the canteen id a parameter
 * Make number of days a parameter
 * Dependency Injection. Fx the HttpClient should only be created once with a HttpClientFactory https://learn.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-8.0
 * Add some tests based on the json files in the testdata folder
