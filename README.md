@@ -1,14 +1,15 @@
 # canteen-menu-scraper
 
 ## How it works
-Reads canteen menu from website, parses it and writes it to a gist as a CSV file .
+Reads a canteen menu from the Kanpla website, parses it and writes it to a Gist as a CSV file.
 
 # Requirements
-1. A user with login to the Canteen website. The user must have assigned the canteens to the profilæe under its settings.
+1. A user with login to the Kanpla website. The user must have assigned the canteens to the profiles under its settings in order to read the particular canteens menu.
 2. An existing Gist to store the menu
 
 ## How to run it
 The console app has 6 parameters
+
 1. The Canteen "School ID"
 1. The username for the canteen user
 2. The password for the canteen user
@@ -24,8 +25,8 @@ The menu can then be accessed from the Gist URL. The run action of this reposito
 
 https://gist.github.com/simon-k/6ff5c22ee7d43540c0e2767974f27f9e
 
-
 And looks like this
+
 ```csv
 Date,When,Kind,Name,Description
 02-08-2024,02-08-2024 11:00,Vegetarian,"Mexican bean casule with rice sour cream, jalapenos, vegan tortilla chips","Mexicansk bønnecasule med ris creme fraiche, jalapenos, vegansk tortillia chips"
@@ -43,4 +44,5 @@ Note, the date and time is in CET timezone and in the format dd-MM-yyyy hh:mm.
 * Add some tests based on the json files in the testdata folder
 
 ## W.T.F.
-The Kanpla website is clearly built for schools and not for companies, so a canteen is identified by a School ID and not a Canteen Id. 
+* The Kanpla website is clearly built for schools and not for companies, so a canteen is identified by a School ID and not a Canteen Id. 
+* The json that is used to scrape the menu from is highly coupled with the frontend, so it might very well break in the future when Kanpla updates the website. There doesn't seem to be a pretty REST API for getting the menu.
