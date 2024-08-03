@@ -14,7 +14,7 @@ The console app has 6 parameters
 2. The password for the canteen user
 3. PAT for a GitHub user that has permission to write to the Gist 
 4. Gist ID for the Gist you want to write to
-5. Gidt Filename for the CSV file~~~~
+5. Giat Filename for the CSV file
 
 ```bash
 CanteenParser.exe <canten-school-id> <canteen-username> <canteen-password> <github-pat> <gist-id> <gist-filename>
