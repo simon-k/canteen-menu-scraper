@@ -108,6 +108,11 @@ public static class MenuParser
         {
             return "Chicken";
         }
+
+        if (text.Contains("turkey", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return "Chicken";
+        }
        
         return "Meat";
     }
