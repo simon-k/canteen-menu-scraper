@@ -58,3 +58,33 @@ jobs:
         gist_id: ${{ secrets.GIST_ID }}
         gist_filename: "B9.csv"
       run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
+
+    - name: Get Kalundborg EG Menu
+      env:
+        canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_EG }}
+        canteen_username: ${{ secrets.CANTEEN_USERNAME }}
+        canteen_password: ${{ secrets.CANTEEN_PASSWORD }}
+        gist_write_pat: ${{ secrets.GIST_WRITE_PAT }}
+        gist_id: ${{ secrets.GIST_ID }}
+        gist_filename: "EG.csv"
+      run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
+
+    - name: Get Kalundborg GE Menu
+      env:
+        canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_GE }}
+        canteen_username: ${{ secrets.CANTEEN_USERNAME }}
+        canteen_password: ${{ secrets.CANTEEN_PASSWORD }}
+        gist_write_pat: ${{ secrets.GIST_WRITE_PAT }}
+        gist_id: ${{ secrets.GIST_ID }}
+        gist_filename: "GE.csv"
+      run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
+
+    - name: Get Kalundborg HB Menu
+      env:
+        canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_HB }}
+        canteen_username: ${{ secrets.CANTEEN_USERNAME }}
+        canteen_password: ${{ secrets.CANTEEN_PASSWORD }}
+        gist_write_pat: ${{ secrets.GIST_WRITE_PAT }}
+        gist_id: ${{ secrets.GIST_ID }}
+        gist_filename: "HB.csv"
+      run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
