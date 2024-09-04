@@ -94,6 +94,16 @@ public static class MenuParser
             return "Fish";
         }
 
+        if (text.Contains("seafood", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return "Fish";
+        }
+
+        if (text.Contains("salmon", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return "Fish";
+        }
+        
         if (text.Contains("Catch of the day", StringComparison.CurrentCultureIgnoreCase))
         {
             return "Fish";
