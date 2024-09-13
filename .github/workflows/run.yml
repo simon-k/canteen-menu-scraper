@@ -88,3 +88,13 @@ jobs:
         gist_id: ${{ secrets.GIST_ID }}
         gist_filename: "HC.csv"
       run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
+
+    - name: Get HJA Menu
+      env:
+        canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_HJA }}
+        canteen_username: ${{ secrets.CANTEEN_USERNAME }}
+        canteen_password: ${{ secrets.CANTEEN_PASSWORD }}
+        gist_write_pat: ${{ secrets.GIST_WRITE_PAT }}
+        gist_id: ${{ secrets.GIST_ID }}
+        gist_filename: "HJA.csv"
+      run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
