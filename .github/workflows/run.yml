@@ -20,6 +20,7 @@ jobs:
         dotnet-version: 8.0.x
              
     - name: Get LP42 Menu
+      if: always()
       env:
         canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_LP42 }}
         canteen_username: ${{ secrets.CANTEEN_USERNAME }}
@@ -30,6 +31,7 @@ jobs:
       run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
 
     - name: Get VTA Menu
+      if: always()
       env:
         canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_VTA }}
         canteen_username: ${{ secrets.CANTEEN_USERNAME }}
@@ -40,6 +42,7 @@ jobs:
       run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
       
     - name: Get VTD Menu
+      if: always()
       env:
         canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_VTD }}
         canteen_username: ${{ secrets.CANTEEN_USERNAME }}
@@ -50,6 +53,7 @@ jobs:
       run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
 
     - name: Get Maalov B9 Menu
+      if: always()
       env:
         canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_B9 }}
         canteen_username: ${{ secrets.CANTEEN_USERNAME }}
@@ -60,6 +64,7 @@ jobs:
       run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
 
     - name: Get Kalundborg EG Menu
+      if: always()
       env:
         canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_EG }}
         canteen_username: ${{ secrets.CANTEEN_USERNAME }}
@@ -70,6 +75,7 @@ jobs:
       run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
 
     - name: Get Kalundborg GE Menu
+      if: always()
       env:
         canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_GE }}
         canteen_username: ${{ secrets.CANTEEN_USERNAME }}
@@ -80,6 +86,7 @@ jobs:
       run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
 
     - name: Get Kalundborg HC Menu
+      if: always()
       env:
         canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_HC }}
         canteen_username: ${{ secrets.CANTEEN_USERNAME }}
@@ -90,6 +97,7 @@ jobs:
       run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
 
     - name: Get HJA Menu
+      if: always()
       env:
         canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_HJA }}
         canteen_username: ${{ secrets.CANTEEN_USERNAME }}
