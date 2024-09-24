@@ -14,7 +14,6 @@ public class Offer
 
 public class Item
 {
-    public int UnitPrice { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Category { get; set; } = string.Empty;
     public Dictionary<string, Date> Dates { get; set; } = new();
