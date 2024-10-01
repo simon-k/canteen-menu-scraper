@@ -109,11 +109,6 @@ public static class MenuParser
             return "Fish";
         }
 
-        if (text.Contains("pork", StringComparison.CurrentCultureIgnoreCase))
-        {
-            return "Pork";
-        }
-
         if (text.Contains("chicken", StringComparison.CurrentCultureIgnoreCase))
         {
             return "Chicken";
@@ -123,7 +118,17 @@ public static class MenuParser
         {
             return "Chicken";
         }
-       
+
+        if (text.Contains("pork", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return "Pork";
+        }
+
+        if (text.Contains("pig", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return "Pork";
+        }
+        
         return "Meat";
     }
     
