@@ -27,6 +27,11 @@ public class KindParser
             return "Pork";
         }
         
+        if (text.Contains("vegetar", StringComparison.CurrentCultureIgnoreCase))
+        {
+            return "Vegetarian";
+        }
+        
         return "Meat";
     }
 }
