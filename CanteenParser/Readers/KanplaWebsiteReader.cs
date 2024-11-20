@@ -7,14 +7,14 @@ using CanteenParser.Domain;
 
 namespace CanteenParser.Readers;
 
-public class WebsiteReader
+public class KanplaWebsiteReader
 {
-    public async Task<WebsiteContent> ReadWebsiteContentAsync(string username, string password, string schoolId)
+    public async Task<KanplaWebsiteContent> ReadWebsiteContentAsync(string username, string password, string schoolId)
     {
         var authId = await GetAuthIdAsync(username, password);
         var frontendJson = await GetFrontendAsync(authId, schoolId);
         
-        var frontendContent = JsonSerializer.Deserialize<WebsiteContent>(frontendJson, new JsonSerializerOptions
+        var frontendContent = JsonSerializer.Deserialize<KanplaWebsiteContent>(frontendJson, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;

@@ -1,6 +1,6 @@
 ﻿namespace CanteenParser.Domain;
 
-public class WebsiteContent
+public class KanplaWebsiteContent
 {
     public bool AllowMobilePay { get; set; }
     public bool AllowSwish { get; set; }
