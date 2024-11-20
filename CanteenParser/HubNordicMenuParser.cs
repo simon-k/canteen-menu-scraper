@@ -47,7 +47,14 @@ public class HubNordicMenuParser
         var homeboundVegeMenu = websiteContent.WorldWeekMenu["ONSDAG I HOMEBOUND (VEGETAR)"];
         dishes.Add(new Dish{ Date = GetDateFromWeekday("Onsdag"), Kind = "Vegetarian", Name = "Homebound", Description = homeboundVegeMenu });
         
-        return dishes.Where(d => d.Date >= DateTimeOffset.UtcNow.Date ).OrderBy(d => d.Date).ToList();
+        var filteretDishes =  dishes.Where(d => d.Date >= DateTimeOffset.UtcNow.Date ).OrderBy(d => d.Date).ToList();
+
+        foreach (var filteretDish in filteretDishes)
+        {
+            Console.WriteLine($"menu: {filteretDish.Date} {filteretDish.Name} {filteretDish.Description}");
+        }
+        
+        return filteretDishes;
     }
     
     private static DateTimeOffset GetDateFromWeekday(string weekday)
