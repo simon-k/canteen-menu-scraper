@@ -1,29 +1,29 @@
 ﻿using System.Text.RegularExpressions;
 using CanteenParser.Domain;
+using CanteenParser.Utils;
 
 namespace CanteenParser;
 
-public static class MenuParser
+public static class KanplaMenuParser
 {
     private const string VEGITARIAN_DISH = "Green dish of the day";
     private const string MEAT_DISH = "Dish of the day";
 
-
-    public static List<Dish> GetAllDishes(int days, WebsiteContent websiteContent)
+    public static List<Dish> GetAllDishes(int days, KanplaWebsiteContent kanplaWebsiteContent)
     {
         var dishes = new List<Dish>();
         for(var i = 0; i < days; i++)
         {
             try
             {
-                var vegetarianDish = GetVegetarianDish(websiteContent, i);
+                var vegetarianDish = GetVegetarianDish(kanplaWebsiteContent, i);
                 if (vegetarianDish != null)
                 {
                     Console.WriteLine($"Vegetarian menu: {vegetarianDish}");
                     dishes.Add(vegetarianDish);
                 }
 
-                var meatDish = GetDish(websiteContent, i);
+                var meatDish = GetDish(kanplaWebsiteContent, i);
                 if (meatDish != null)
                 {
                     Console.WriteLine($"Menu: {meatDish}");
@@ -38,21 +38,21 @@ public static class MenuParser
         return dishes;
     }
     
-    public static Dish? GetVegetarianDish(WebsiteContent websiteContent, int dateOffset)
+    public static Dish? GetVegetarianDish(KanplaWebsiteContent kanplaWebsiteContent, int dateOffset)
     {
         var date = GetTodaysDateInUnixTimestamp(dateOffset);
-        return GetMenu(websiteContent, VEGITARIAN_DISH, date);
+        return GetMenu(kanplaWebsiteContent, VEGITARIAN_DISH, date);
     }
     
-    public static Dish? GetDish(WebsiteContent websiteContent, int dateOffset)
+    public static Dish? GetDish(KanplaWebsiteContent kanplaWebsiteContent, int dateOffset)
     {
         var date = GetTodaysDateInUnixTimestamp(dateOffset);
-        return GetMenu(websiteContent, MEAT_DISH, date);
+        return GetMenu(kanplaWebsiteContent, MEAT_DISH, date);
     }
     
-    private static Dish? GetMenu(WebsiteContent websiteContent, string itemName, string dateUnixSeconds)
+    private static Dish? GetMenu(KanplaWebsiteContent kanplaWebsiteContent, string itemName, string dateUnixSeconds)
     {
-        var items = FindItemByName(websiteContent, itemName);
+        var items = FindItemByName(kanplaWebsiteContent, itemName);
         var todaysMenu = items.Dates.GetValueOrDefault(dateUnixSeconds);          
         
         if (todaysMenu == null || string.IsNullOrWhiteSpace(todaysMenu.Menu.Name))
@@ -66,7 +66,7 @@ public static class MenuParser
             Name = TrimUnwantedCharacters(todaysMenu.Menu.Name),
             Description = TrimUnwantedCharacters(todaysMenu.Menu.Description),
             Date = DateTimeOffset.FromUnixTimeSeconds(todaysMenu.Menu.DateSeconds),
-            Kind = itemName.Equals(VEGITARIAN_DISH) ? "Vegetarian" : GetKind(todaysMenu.Menu.Name)
+            Kind = itemName.Equals(VEGITARIAN_DISH) ? "Vegetarian" : KindParser.GetKind(todaysMenu.Menu.Name)
         };
     }
     
@@ -78,58 +78,13 @@ public static class MenuParser
         return todayUnixSeconds.ToString();        
     }
     
-    private static Item FindItemByName(WebsiteContent websiteContent, string name)
+    private static Item FindItemByName(KanplaWebsiteContent kanplaWebsiteContent, string name)
     {
-        var item = websiteContent.Offers
+        var item = kanplaWebsiteContent.Offers
             .SelectMany(offer => offer.Value.Items)
             .FirstOrDefault(item => item.Name == name);
 
         return item!;
-    }
-    
-    private static string GetKind(string text)
-    {
-        if (text.Contains("fish", StringComparison.CurrentCultureIgnoreCase))
-        {
-            return "Fish";
-        }
-
-        if (text.Contains("seafood", StringComparison.CurrentCultureIgnoreCase))
-        {
-            return "Fish";
-        }
-
-        if (text.Contains("salmon", StringComparison.CurrentCultureIgnoreCase))
-        {
-            return "Fish";
-        }
-        
-        if (text.Contains("Catch of the day", StringComparison.CurrentCultureIgnoreCase))
-        {
-            return "Fish";
-        }
-
-        if (text.Contains("chicken", StringComparison.CurrentCultureIgnoreCase))
-        {
-            return "Chicken";
-        }
-
-        if (text.Contains("turkey", StringComparison.CurrentCultureIgnoreCase))
-        {
-            return "Chicken";
-        }
-
-        if (text.Contains("pork", StringComparison.CurrentCultureIgnoreCase))
-        {
-            return "Pork";
-        }
-
-        if (text.Contains("pig", StringComparison.CurrentCultureIgnoreCase))
-        {
-            return "Pork";
-        }
-        
-        return "Meat";
     }
     
     private static string TrimUnwantedCharacters(string input)
