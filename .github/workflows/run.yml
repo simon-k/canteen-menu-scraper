@@ -110,7 +110,7 @@ jobs:
     - name: Get Hub1 Menu
       if: always()
       env:
-        canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_HUB1 }}
+        canteen_school_id: Hub1
         canteen_username: ${{ secrets.CANTEEN_USERNAME }}
         canteen_password: ${{ secrets.CANTEEN_PASSWORD }}
         gist_write_pat: ${{ secrets.GIST_WRITE_PAT }}
