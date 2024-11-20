@@ -106,3 +106,15 @@ jobs:
         gist_id: ${{ secrets.GIST_ID }}
         gist_filename: "HJA.csv"
       run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
+
+    - name: Get Hub1 Menu
+      if: always()
+      env:
+        canteen_school_id: ${{ secrets.CANTEEN_SCHOOL_ID_HUB1 }}
+        canteen_username: ${{ secrets.CANTEEN_USERNAME }}
+        canteen_password: ${{ secrets.CANTEEN_PASSWORD }}
+        gist_write_pat: ${{ secrets.GIST_WRITE_PAT }}
+        gist_id: ${{ secrets.GIST_ID }}
+        gist_filename: "HUB1.csv"
+      run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $gist_write_pat $gist_id $gist_filename
+      
