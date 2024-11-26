@@ -2,7 +2,7 @@ namespace CanteenParser.Utils;
 
 public class KindParser
 {
-    public static string GetKind(string text)
+    public static string GetKind(string text, string defaultKind = "Meat")
     {
         if (text.Contains("salmon", StringComparison.CurrentCultureIgnoreCase) ||
              text.Contains("laks", StringComparison.CurrentCultureIgnoreCase) ||
@@ -32,6 +32,6 @@ public class KindParser
             return "Vegetarian";
         }
         
-        return "Meat";
+        return defaultKind;
     }
 }
