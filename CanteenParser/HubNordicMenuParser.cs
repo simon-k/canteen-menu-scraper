@@ -14,7 +14,7 @@ public class HubNordicMenuParser
             var newDish = new Dish
             {
                 Date = GetDateFromWeekday(day),
-                Kind = KindParser.GetKind(dish),
+                Kind = day.Equals("Onsdag") ?  KindParser.GetKind(dish, "Vegetarian") : KindParser.GetKind(dish),
                 Name = "Kays",
                 Description = dish
             };
@@ -23,11 +23,11 @@ public class HubNordicMenuParser
 
         //Add World Sprout Menu
         var sproutMenu = websiteContent.WorldWeekMenu["SPROUT MENU"];
-        dishes.Add(new Dish{ Date = GetDateFromWeekday("Mandag"), Kind = "Vegetarian", Name = "Sprout", Description = sproutMenu });
-        dishes.Add(new Dish{ Date = GetDateFromWeekday("Tirsdag"), Kind = "Vegetarian", Name = "Sprout", Description = sproutMenu });
-        dishes.Add(new Dish{ Date = GetDateFromWeekday("Onsdag"), Kind = "Vegetarian", Name = "Sprout", Description = sproutMenu });
-        dishes.Add(new Dish{ Date = GetDateFromWeekday("Torsdag"), Kind = "Vegetarian", Name = "Sprout", Description = sproutMenu });
-        dishes.Add(new Dish{ Date = GetDateFromWeekday("Fredag"), Kind = "Vegetarian", Name = "Sprout", Description = sproutMenu });
+        dishes.Add(new Dish{ Date = GetDateFromWeekday("Mandag"), Kind = KindParser.GetKind(sproutMenu, "Vegetarian"), Name = "Sprout", Description = sproutMenu });
+        dishes.Add(new Dish{ Date = GetDateFromWeekday("Tirsdag"), Kind = KindParser.GetKind(sproutMenu, "Vegetarian"), Name = "Sprout", Description = sproutMenu });
+        dishes.Add(new Dish{ Date = GetDateFromWeekday("Onsdag"), Kind = KindParser.GetKind(sproutMenu, "Vegetarian"), Name = "Sprout", Description = sproutMenu });
+        dishes.Add(new Dish{ Date = GetDateFromWeekday("Torsdag"), Kind = KindParser.GetKind(sproutMenu, "Vegetarian"), Name = "Sprout", Description = sproutMenu });
+        dishes.Add(new Dish{ Date = GetDateFromWeekday("Fredag"), Kind = KindParser.GetKind(sproutMenu, "Vegetarian"), Name = "Sprout", Description = sproutMenu });
 
         var globetrotterMenu = websiteContent.WorldWeekMenu["GLOBETROTTER MENU"];
         dishes.Add(new Dish{ Date = GetDateFromWeekday("Mandag"), Kind = KindParser.GetKind(globetrotterMenu), Name = "Globetrotter", Description = globetrotterMenu });
