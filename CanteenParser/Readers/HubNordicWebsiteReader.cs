@@ -58,7 +58,9 @@ public class HubNordicWebsiteReader
             { "Torsdag", string.Empty },
             { "Fredag", string.Empty }
         };
-        
+
+        // There are various ways that we can expect the HTML to be formatted, so we need to try multiple patterns
+        // The below parsing is really poor, but it works...
         foreach (var (day, _) in kaysWeekMenu)
         {
             var pattern = $@"<p><strong><u>{day}<\/u><\/strong><\/p>[\s]*?<p>([\s\S]*?)<\/p>";
@@ -66,6 +68,16 @@ public class HubNordicWebsiteReader
             if (match.Success)
             {
                 kaysWeekMenu[day] = match.Groups.Count >= 1 ? match.Groups[1].Value : string.Empty;
+            }
+            else
+            {
+                pattern = $@"<p><span>{day}<\/span><\/p>[\s]*?<p><span>([\s\S]*?)<\/span>";
+                match = Regex.Match(kaysHtml, pattern);
+                if (match.Success)
+                {
+                    var menuText = match.Groups.Count >= 1 ? match.Groups[1].Value : string.Empty;
+                    kaysWeekMenu[day] = menuText;
+                }
             }
         }
 
