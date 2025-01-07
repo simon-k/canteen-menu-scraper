@@ -34,6 +34,8 @@ public class HubNordicWebsiteReader
             { "ONSDAG I HOMEBOUND (VEGETAR)", string.Empty }
         };
         
+        // There are various ways that we can expect the HTML to be formatted, so we need to try multiple patterns
+        // The below parsing is really poor, but it works...
         foreach (var (day, _) in hub1WorldWeekMenu)
         {
             var dayEscaped = day.Replace("(", "\\(").Replace(")", "\\)");
@@ -44,6 +46,16 @@ public class HubNordicWebsiteReader
                 var menuText = match.Groups.Count >= 1 ? match.Groups[1].Value : string.Empty;
                 menuText = menuText.Replace("<span>", "").Replace("</span>", "");
                 hub1WorldWeekMenu[day] = menuText;
+            }
+            else 
+            {
+                pattern = $@"<p><span>{dayEscaped}<\/span>[\s]*?<span><br><\/span><span>([\s\S]*?)<\/span>";
+                match = Regex.Match(kaysHtml, pattern);
+                if (match.Success)
+                {
+                    var menuText = match.Groups.Count >= 1 ? match.Groups[1].Value : string.Empty;
+                    hub1WorldWeekMenu[day] = menuText;
+                }
             }
         }
 
