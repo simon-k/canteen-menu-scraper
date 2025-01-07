@@ -41,7 +41,9 @@ public class HubNordicWebsiteReader
             var match = Regex.Match(kaysHtml, pattern);
             if (match.Success)
             {
-                hub1WorldWeekMenu[day] = match.Groups.Count >= 1 ? match.Groups[1].Value : string.Empty;
+                var menuText = match.Groups.Count >= 1 ? match.Groups[1].Value : string.Empty;
+                menuText = menuText.Replace("<span>", "").Replace("</span>", "");
+                hub1WorldWeekMenu[day] = menuText;
             }
         }
 
