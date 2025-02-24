@@ -36,6 +36,7 @@ public class HubNordicWebsiteReader
         
         // There are various ways that we can expect the HTML to be formatted, so we need to try multiple patterns
         // The below parsing is really poor, but it works...
+        // TODO: Avoid the nested if statements!!!
         foreach (var (day, _) in hub1WorldWeekMenu)
         {
             var dayEscaped = day.Replace("(", "\\(").Replace(")", "\\)");
@@ -55,6 +56,16 @@ public class HubNordicWebsiteReader
                 {
                     var menuText = match.Groups.Count >= 1 ? match.Groups[1].Value : string.Empty;
                     hub1WorldWeekMenu[day] = menuText;
+                }
+                else
+                {
+                    pattern = $@"<p><strong style=""[\s\S]*?"">{dayEscaped}<\/strong><\/p>[\s]*?<p>([\s\S]*?)<\/p>";
+                    match = Regex.Match(kaysHtml, pattern);
+                    if (match.Success)
+                    {
+                        var menuText = match.Groups.Count >= 1 ? match.Groups[1].Value : string.Empty;
+                        hub1WorldWeekMenu[day] = menuText;
+                    }
                 }
             }
         }
