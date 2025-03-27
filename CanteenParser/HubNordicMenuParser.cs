@@ -125,6 +125,8 @@ public class HubNordicMenuParser
         dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Thursday),  Kind = "Vegetarian", Name = "Sprout", Description = "Salatbar" });
         dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Friday),    Kind = "Vegetarian", Name = "Sprout", Description = "Salatbar" });
         
-        return dishes;
+        var filteretDishes =  dishes.Where(d => d.Date >= DateTimeOffset.UtcNow.Date ).OrderBy(d => d.Date).ToList();
+        
+        return filteretDishes;
     }
 }
