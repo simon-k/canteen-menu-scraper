@@ -22,7 +22,7 @@ public class HubNordicAiReader
             ResponseFormat = typeof(Hub1Menu)
         };
         
-        var prompt = "Given the canteen website https://madkastel.dk/hubnordic/ what is the menu?";
+        var prompt = "Given the canteen website https://madkastel.dk/hubnordic/ what is the menu? Always get the latest content from the website.";
         var result = await kernel.InvokePromptAsync(prompt, new(settings));
         var menu = JsonSerializer.Deserialize<Hub1Menu>(result.ToString()) ?? throw new Exception($"Could not deserialize response from model. It seems like the structured output does not follow the requested schema. Response: {result}");
 
