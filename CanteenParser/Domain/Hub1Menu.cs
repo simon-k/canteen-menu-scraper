@@ -5,6 +5,7 @@ public class Hub1Menu
     public WeeklyMenu Kays { get; set; }
     public WeeklyMenu Globetrotter { get; set; }
     public WeeklyMenu Homebound { get; set; }
+    public WeeklyMenu Sprout { get; set; }
 }
 
 public class WeeklyMenu

@@ -93,7 +93,6 @@ public class HubNordicMenuParser
         //Kays
         dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Monday),    Kind = KindParser.GetKind(menu.Kays.Monday.MainDish),   Name = "Kays", Description = menu.Kays.Monday.MainDish });
         dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Tuesday),   Kind = KindParser.GetKind(menu.Kays.Tuesday.MainDish),  Name = "Kays", Description = menu.Kays.Tuesday.MainDish });
-        dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Wednesday), Kind = "Vegetarian",                                    Name = "Kays", Description = menu.Kays.Wednesday.MainDish });
         dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Thursday),  Kind = KindParser.GetKind(menu.Kays.Thursday.MainDish), Name = "Kays", Description = menu.Kays.Thursday.MainDish });
         dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Friday),    Kind = KindParser.GetKind(menu.Kays.Friday.MainDish),   Name = "Kays", Description = menu.Kays.Friday.MainDish });
         
@@ -119,13 +118,23 @@ public class HubNordicMenuParser
         dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Friday),    Kind = KindParser.GetKind(menu.Globetrotter.Friday.MainDish),   Name = "Globetrotter", Description = menu.Globetrotter.Friday.MainDish });
         
         //Sprout
-        dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Monday),    Kind = "Vegetarian", Name = "Sprout", Description = "Salatbar" });
+        /*dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Monday),    Kind = "Vegetarian", Name = "Sprout", Description = "Salatbar" });
         dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Tuesday),   Kind = "Vegetarian", Name = "Sprout", Description = "Salatbar" });
         dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Wednesday), Kind = "Vegetarian", Name = "Sprout", Description = "Salatbar" });
         dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Thursday),  Kind = "Vegetarian", Name = "Sprout", Description = "Salatbar" });
-        dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Friday),    Kind = "Vegetarian", Name = "Sprout", Description = "Salatbar" });
+        dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Friday),    Kind = "Vegetarian", Name = "Sprout", Description = "Salatbar" });*/
+        dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Monday),    Kind = KindParser.GetKind(menu.Sprout.Monday.MainDish),   Name = "Sprout", Description = menu.Sprout.Monday.MainDish });
+        dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Tuesday),   Kind = KindParser.GetKind(menu.Sprout.Tuesday.MainDish),  Name = "Sprout", Description = menu.Sprout.Tuesday.MainDish });
+        dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Wednesday), Kind = "Vegetarian",                                      Name = "Sprout", Description = menu.Sprout.Wednesday.MainDish });
+        dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Thursday),  Kind = KindParser.GetKind(menu.Sprout.Thursday.MainDish), Name = "Sprout", Description = menu.Sprout.Thursday.MainDish });
+        dishes.Add(new Dish { Date = GetDateFromWeekday(DayOfWeek.Friday),    Kind = KindParser.GetKind(menu.Sprout.Friday.MainDish),   Name = "Sprout", Description = menu.Sprout.Friday.MainDish });
         
         var filteretDishes =  dishes.Where(d => d.Date >= DateTimeOffset.UtcNow.Date ).OrderBy(d => d.Date).ToList();
+        
+        foreach (var filteretDish in filteretDishes)
+        {
+            Console.WriteLine($"menu: {filteretDish.Date} {filteretDish.Name} {filteretDish.Description}");
+        }
         
         return filteretDishes;
     }
