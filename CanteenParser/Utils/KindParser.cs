@@ -22,7 +22,9 @@ public class KindParser
 
         if (text.Contains("pork", StringComparison.CurrentCultureIgnoreCase) ||
             text.Contains("pig", StringComparison.CurrentCultureIgnoreCase) || 
-            text.Contains("bacon", StringComparison.CurrentCultureIgnoreCase))
+            text.Contains("bacon", StringComparison.CurrentCultureIgnoreCase) || 
+            text.Contains("svin", StringComparison.CurrentCultureIgnoreCase)  || 
+            text.Contains("gris", StringComparison.CurrentCultureIgnoreCase) )
         {
             return "Pork";
         }
