@@ -22,11 +22,25 @@ public class HubNordicAiReader
             ResponseFormat = typeof(Hub1Menu)
         };
         
-        var prompt = "Given the canteen website https://madkastel.dk/hubnordic/ what is the menu? ALWAYS get the latest content from the website. Do not translate the menu to english, keep the menu in danish";
+        var html = await GetHtmlContentAsync("https://madkastel.dk/hubnordic/");
+        var prompt = $"""
+                     Given the html below, what is the menu?. 
+                     
+                     {html}
+                     """;
         var result = await kernel.InvokePromptAsync(prompt, new(settings));
         var menu = JsonSerializer.Deserialize<Hub1Menu>(result.ToString()) ?? throw new Exception($"Could not deserialize response from model. It seems like the structured output does not follow the requested schema. Response: {result}");
 
         return menu;
+    }
+
+    public async Task<string> GetHtmlContentAsync(string url)
+    {
+        using var handler = new HttpClientHandler();
+        handler.CheckCertificateRevocationList = false;
+        using var client = new HttpClient(handler);
+        var html = await client.GetStringAsync(url);
+        return html;
     }
 
     private Kernel GetKernel(string openAiApiKey)
@@ -38,7 +52,7 @@ public class HubNordicAiReader
         var kernelBuilder = Kernel.CreateBuilder();
         
         var kernel = kernelBuilder
-            .AddOpenAIChatCompletion("gpt-4o-mini-search-preview", openAiApiKey, httpClient: client) 
+            .AddOpenAIChatCompletion("gpt-4o-mini", openAiApiKey, httpClient: client) 
             .Build();
 
         return kernel;
