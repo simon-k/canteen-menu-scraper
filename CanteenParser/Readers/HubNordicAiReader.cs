@@ -24,7 +24,10 @@ public class HubNordicAiReader
         
         var html = await GetHtmlContentAsync("https://madkastel.dk/hubnordic/");
         var prompt = $"""
-                     Given the html below, what is the menu?. 
+                     Given the html below, what is the menu? The website is in Danish.
+                     
+                     The Kays menu is in the HTML table column with the headline "HUB1 – Kays".
+                     The Globetrotter, Homebound and Sprout menus are in the HTML table column named "HUB1 – Kays Verdenskøkken".
                      
                      {html}
                      """;
