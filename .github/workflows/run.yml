@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   
   schedule:
-    - cron: "0 6,7,8 * * *" # Run every day at 6, 7 and 8 UTC 
+    - cron: "0 6,7,8 * * 1-5" # Run on weekdays (Mon-Fri) at 6, 7 and 8 UTC 
       
 jobs:
   build:
