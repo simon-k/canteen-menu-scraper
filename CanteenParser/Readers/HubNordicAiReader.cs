@@ -1,5 +1,6 @@
 using System.Text.Json;
 using CanteenParser.Domain;
+using HtmlAgilityPack;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 
@@ -24,11 +25,13 @@ public class HubNordicAiReader
         
         var html = await GetHtmlContentAsync("https://madkastel.dk/hubnordic/");
         var prompt = $"""
-                     Given the html below, what is the menu? The website is in Danish.
+                     Find ugens menu som findes i nedenstående HTML. Menuen er på dansk.
                      
-                     The Kays menu is in the HTML table column with the headline "HUB1 – Kays".
-                     The Globetrotter, Homebound and Sprout menus are in the HTML table column named "HUB1 – Kays Verdenskøkken".
+                     Kays menu er i tabellen som har titlen "HUB1 – Kays".
+                     Globetrotter, Homebound og Sprout menuerne er i tabellen med titlen "HUB1 – Kays Verdenskøkken".
                      
+                     Dagene i ugen er: Mandag, Tirsdag, Onsdag, Torsdag, Fredag.
+                     Dage være grupperet med komma, semikolon eller skråstreg. Fx "Mandag, Tirsdag, Torsdag og Fredag" eller "Mandag/Tirsdag"
                      {html}
                      """;
         var result = await kernel.InvokePromptAsync(prompt, new(settings));
@@ -43,7 +46,22 @@ public class HubNordicAiReader
         handler.CheckCertificateRevocationList = false;
         using var client = new HttpClient(handler);
         var html = await client.GetStringAsync(url);
-        return html;
+        
+        // In the html, find the dic with the class containing "et_pb_column et_pb_column_1_4 et_pb_column_1"
+        // and return the inner HTML of that div.
+        
+        var htmlDoc = GetHtmlDocument("https://madkastel.dk/hubnordic/");
+        // in the htmlDoc, find the div with the class "et_pb_column et_pb_column_1_4 et_pb_column_1"
+        var kaysDiv = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'et_pb_column et_pb_column_1_4 et_pb_column_1')]");
+        var worldDiv = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'et_pb_column et_pb_column_1_4 et_pb_column_2')]");
+        if (kaysDiv == null || worldDiv == null)
+        {
+            throw new Exception("Could not find the Kays or World div in the HTML document.");
+        }
+        
+        var divHtml = kaysDiv.InnerHtml + worldDiv.InnerHtml;
+        
+        return divHtml;
     }
 
     private Kernel GetKernel(string openAiApiKey)
@@ -59,5 +77,11 @@ public class HubNordicAiReader
             .Build();
 
         return kernel;
+    }
+    
+    private HtmlDocument GetHtmlDocument(string url)
+    {
+        var web = new HtmlWeb();
+        return web.Load(url);
     }
 }
