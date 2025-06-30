@@ -32,6 +32,9 @@ public class HubNordicAiReader
                      
                      Dagene i ugen er: Mandag, Tirsdag, Onsdag, Torsdag, Fredag.
                      Dage være grupperet med komma, semikolon eller skråstreg. Fx "Mandag, Tirsdag, Torsdag og Fredag" eller "Mandag/Tirsdag"
+                     
+                     Hvis der ikke er en menu for en dag eller restuaranten er lukket, så skriv "Lukket" for den dag.
+                     
                      {html}
                      """;
         var result = await kernel.InvokePromptAsync(prompt, new(settings));
@@ -51,12 +54,47 @@ public class HubNordicAiReader
         // and return the inner HTML of that div.
         
         var htmlDoc = GetHtmlDocument("https://madkastel.dk/hubnordic/");
-        // in the htmlDoc, find the div with the class "et_pb_column et_pb_column_1_4 et_pb_column_1"
-        var kaysDiv = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'et_pb_column et_pb_column_1_4 et_pb_column_1')]");
+        
+        var kaysDiv = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'et_pb_column et_pb_column_1_4 et_pb_column_1')]") ??
+                      htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'et_pb_column et_pb_column_1_2 et_pb_column_1')]");
+
         var worldDiv = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'et_pb_column et_pb_column_1_4 et_pb_column_2')]");
-        if (kaysDiv == null || worldDiv == null)
+
+        if (kaysDiv == null)
         {
-            throw new Exception("Could not find the Kays or World div in the HTML document.");
+            kaysDiv = htmlDoc.CreateElement("div");
+            kaysDiv.InnerHtml = """
+                                <h1>HUB1 – Kays</h1>
+                                <p>Mandag: Lukket</p>
+                                <p>Tirsdag: Lukket</p>
+                                <p>Onsdag: Lukket</p>
+                                <p>Torsdag: Lukket</p>
+                                <p>Fredag: Lukket</p>
+                                """;
+        }
+        if (worldDiv == null)
+        {
+            worldDiv = htmlDoc.CreateElement("div");
+            worldDiv.InnerHtml = """
+                                 <h1>Globetrotter</h1>
+                                 <p>Mandag: Lukket</p>
+                                 <p>Tirsdag: Lukket</p>
+                                 <p>Onsdag: Lukket</p>
+                                 <p>Torsdag: Lukket</p>
+                                 <p>Fredag: Lukket</p>
+                                 <h1>Sprout</h1>
+                                 <p>Mandag: Lukket</p>
+                                 <p>Tirsdag: Lukket</p>
+                                 <p>Onsdag: Lukket</p>
+                                 <p>Torsdag: Lukket</p>
+                                 <p>Fredag: Lukket</p>
+                                 <h1>Homebound</h1>
+                                 <p>Mandag: Lukket</p>
+                                 <p>Tirsdag: Lukket</p>
+                                 <p>Onsdag: Lukket</p>
+                                 <p>Torsdag: Lukket</p>
+                                 <p>Fredag: Lukket</p>
+                                 """;
         }
         
         var divHtml = kaysDiv.InnerHtml + worldDiv.InnerHtml;
