@@ -28,7 +28,7 @@ public class HubNordicAiReader
                      Find ugens menu som findes i nedenstående HTML. Menuen er på dansk.
                      
                      Kays menu er i tabellen som har titlen "HUB1 – Kays".
-                     Globetrotter, Homebound og Sprout menuerne er i tabellen med titlen "HUB1 – Kays Verdenskøkken".
+                     Globetrotter, Homebound og Sprout menuerne er i tabellen med titlen "FOODCORE".
                      
                      Dagene i ugen er: Mandag, Tirsdag, Onsdag, Torsdag, Fredag.
                      Dage være grupperet med komma, semikolon eller skråstreg. Fx "Mandag, Tirsdag, Torsdag og Fredag" eller "Mandag/Tirsdag"
@@ -58,7 +58,7 @@ public class HubNordicAiReader
         var kaysDiv = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'et_pb_column et_pb_column_1_4 et_pb_column_1')]") ??
                       htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'et_pb_column et_pb_column_1_2 et_pb_column_1')]");
 
-        var worldDiv = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'et_pb_column et_pb_column_1_4 et_pb_column_2')]");
+        var worldDiv = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'et_pb_column et_pb_column_1_4 et_pb_column_4')]");
 
         if (kaysDiv == null)
         {
