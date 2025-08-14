@@ -4,7 +4,7 @@ public class Dish
 {
     public required DateTimeOffset Date { get; set; }
     public string When => Date.AddHours(11).ToString("dd-MM-yyyy HH:mm");
-    public string Expire => Date.AddHours(14).ToString("dd-MM-yyyy HH:mm");
+    public long ExpireUnixMs => Date.AddHours(14).ToUnixTimeMilliseconds();
     public required string Kind { get; set; }
     public required string Name { get; set; }
     public required string Description { get; set; }
