@@ -26,15 +26,22 @@ public class HubNordicAiReader
         var html = await GetHtmlContentAsync("https://madkastel.dk/hubnordic/");
         var prompt = $"""
                      Find ugens menu som findes i nedenstående HTML. Menuen er på dansk.
+
+                     For restauranten Kays gælder det at:
+                     - Kays menu er i tabellen som har titlen "HUB1 – Kays"
+                     - Dagene i ugens menu er: Mandag, Tirsdag, Onsdag, Torsdag, Fredag
+                     - Alle dage, ud over onsdag, har både en almindelig ret og en vegetar ret
+                     - Onsdag er kun vegetar ret
+                    
                      
-                     Kays menu er i tabellen som har titlen "HUB1 – Kays".
-                     Globetrotter, Homebound og Sprout menuerne er i tabellen med titlen "FOODCORE".
-                     
-                     Dagene i ugen er: Mandag, Tirsdag, Onsdag, Torsdag, Fredag.
-                     Dage være grupperet med komma, semikolon eller skråstreg. Fx "Mandag, Tirsdag, Torsdag og Fredag" eller "Mandag/Tirsdag"
-                     
-                     Hvis der ikke er en menu for en dag eller restuaranten er lukket, så skriv "Lukket" for den dag.
-                     
+                     For restauranterne Globetrotter, Homebound og Sprout gælder det at:
+                     - Globetrotter, Homebound og Sprout menuerne er i tabellen med titlen "Food Court".
+                     - Menuen for de enkelte restauranter står både på dansk og engelsk. 
+                     - Dage kan være grupperet med komma, semikolon eller skråstreg. Fx "Mandag, Tirsdag, Torsdag og Fredag" eller "Mandag/Tirsdag" eller blandet dansk og engelsk "Mandag/Tirsdag/Monday/Tuesday"
+
+                     For alle restauranter gælder det at
+                     - Hvis der ikke er en menu for en dag eller restuaranten er lukket, så skriv "Lukket" for den dag.
+
                      {html}
                      """;
         var result = await kernel.InvokePromptAsync(prompt, new(settings));
