@@ -40,7 +40,7 @@ public class HubNordicAiReader
                      - Dage kan være grupperet med komma, semikolon eller skråstreg. Fx "Mandag, Tirsdag, Torsdag og Fredag" eller "Mandag/Tirsdag" eller blandet dansk og engelsk "Mandag/Tirsdag/Monday/Tuesday" eller "Onsdag/Wednesday"
 
                      For alle restauranter gælder det at
-                     - Hvis der ikke er en menu for en dag eller restuaranten er lukket, så skriv "Lukket" for den dag. 
+                     - Hvis der ikke er en menu for en dag eller restuaranten er lukket, så skriv "Lukket" for den dag. Men vær helt sikker på at der er lukket!
 
                      {html}
                      """;
