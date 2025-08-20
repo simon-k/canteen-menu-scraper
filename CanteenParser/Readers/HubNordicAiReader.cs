@@ -118,7 +118,7 @@ public class HubNordicAiReader
         var kernelBuilder = Kernel.CreateBuilder();
         
         var kernel = kernelBuilder
-            .AddOpenAIChatCompletion("gpt-4.1-nano", openAiApiKey, httpClient: client) 
+            .AddOpenAIChatCompletion("gpt-5-mini", openAiApiKey, httpClient: client) 
             .Build();
 
         return kernel;
