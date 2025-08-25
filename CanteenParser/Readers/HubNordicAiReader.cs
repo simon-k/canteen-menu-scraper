@@ -37,10 +37,11 @@ public class HubNordicAiReader
                      For restauranterne Globetrotter, Homebound og Sprout gælder det at:
                      - Globetrotter, Homebound og Sprout menuerne er i tabellen med titlen "Food Court".
                      - Menuen for de enkelte restauranter står ofte både på dansk og engelsk. Brug den danske version af menuen, eller den engelske hvis ikke der er en dansk version.
+                     - Onsdag er der kun vegetar mad. 
                      - Dage kan være grupperet med komma, semikolon eller skråstreg. Fx "Mandag, Tirsdag, Torsdag og Fredag" eller "Mandag/Tirsdag" eller blandet dansk og engelsk "Mandag/Tirsdag/Monday/Tuesday" eller "Onsdag/Wednesday"
 
                      For alle restauranter gælder det at
-                     - Hvis der ikke er en menu for en dag eller restuaranten er lukket, så skriv "Lukket" for den dag. Men vær helt sikker på at der er lukket!
+                     - Hvis der ikke er en menu for en dag eller restuaranten er lukket, så skriv "Lukket" for den dag. Men vær helt sikker på at der er lukket. Hvis der kun er vegetar ret, så brug den.
 
                      {html}
                      """;
