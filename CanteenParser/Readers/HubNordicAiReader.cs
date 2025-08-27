@@ -36,7 +36,7 @@ public class HubNordicAiReader
                      
                      For restauranterne Globetrotter, Homebound og Sprout gælder det at:
                      - Globetrotter, Homebound og Sprout menuerne er i tabellen med titlen "Food Court".
-                     - Menuen for de enkelte restauranter står ofte både på dansk og engelsk. Brug den danske version af menuen, eller den engelske hvis ikke der er en dansk version.
+                     - Menuen for de enkelte restauranter står ofte både på dansk og engelsk. 
                      - Onsdag er der kun vegetar mad. 
                      - Dage kan være grupperet med komma, semikolon eller skråstreg. Fx "Mandag, Tirsdag, Torsdag og Fredag" eller "Mandag/Tirsdag" eller blandet dansk og engelsk "Mandag/Tirsdag/Monday/Tuesday" eller "Onsdag/Wednesday"
 
