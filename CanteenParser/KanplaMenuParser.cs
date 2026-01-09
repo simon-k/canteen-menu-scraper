@@ -82,7 +82,7 @@ public static class KanplaMenuParser
     {
         var item = kanplaWebsiteContent.Offers
             .SelectMany(offer => offer.Value.Items)
-            .FirstOrDefault(item => item.Name == name);
+           .FirstOrDefault(item => item.Name == name && item.Price == 0);
 
         return item!;
     }
