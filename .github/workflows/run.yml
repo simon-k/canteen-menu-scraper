@@ -115,15 +115,15 @@ jobs:
         openAiKey: ${{ secrets.OPENAI_KEY }}
       run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $openAiKey $gist_write_pat $gist_id $gist_filename
 
-    - name: Get Hub1 Menu
-      if: always()
-      env:
-        canteen_school_id: Hub1
-        canteen_username: ${{ secrets.CANTEEN_USERNAME }}
-        canteen_password: ${{ secrets.CANTEEN_PASSWORD }}
-        gist_write_pat: ${{ secrets.GIST_WRITE_PAT }}
-        gist_id: ${{ secrets.GIST_ID }}
-        gist_filename: "HUB1.csv"
-        openAiKey: ${{ secrets.OPENAI_KEY }}
-      run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $openAiKey $gist_write_pat $gist_id $gist_filename
+ #   - name: Get Hub1 Menu
+ #     if: always()
+ #     env:
+ #       canteen_school_id: Hub1
+ #       canteen_username: ${{ secrets.CANTEEN_USERNAME }}
+ #       canteen_password: ${{ secrets.CANTEEN_PASSWORD }}
+ #       gist_write_pat: ${{ secrets.GIST_WRITE_PAT }}
+ #       gist_id: ${{ secrets.GIST_ID }}
+ #       gist_filename: "HUB1.csv"
+ #       openAiKey: ${{ secrets.OPENAI_KEY }}
+ #     run: dotnet run --project CanteenParser $canteen_school_id $canteen_username $canteen_password $openAiKey $gist_write_pat $gist_id $gist_filename
       
