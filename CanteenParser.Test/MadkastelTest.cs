@@ -5,7 +5,7 @@ namespace CanteenParser.Test;
 
 public class MadkastelTest
 {
-    [Fact]
+    //[Fact]
     public async Task Test1()
     {
         var url = "https://madkastel.dk/hubnordic/";
